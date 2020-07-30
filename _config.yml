@@ -2,7 +2,7 @@ title: Mirage
 description: My Personal blog
 author: Deven Bhooshan
 github: https://github.com/devenbhooshan
-about: I like building software
+about: I like building software products
 disqus_shortname: devenbhooshan
 google_analytics: UA-XXXXXXXX-Y
 
@@ -24,10 +24,10 @@ social:
     - icon: fa-stack-exchange
       link: "#"
     - icon: fa-github
-      link: "https://github.com/agusmakmun"
+      link: "https://github.com/devenbhooshan"
 
 share:
-  twitter_username: github.io
+  twitter_username: devenbhooshan
   fb_appid: 1749788565247320
 
 urls:
