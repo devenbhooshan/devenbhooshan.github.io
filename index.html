@@ -1,26 +1,37 @@
+---
+supergrow_domain: Supergrow.ai
+supergrow_url: https://supergrow.ai
+my_name: Deven Bhooshan
+meta_description: Founder of supergrow.ai and videogrow.ai. Ex-GoJek, Ex-Amazon, entrepreneur passionate about creating products for creators.
+meta_short_title: Founder & SaaS Entrepreneur
+my_website_url: https://devenbhooshan.in
+videogrow_domain: Videogrow.ai
+
+---
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>Deven Bhooshan - Founder & SaaS Entrepreneur</title>
-	<meta name="title" content="Deven Bhooshan - Founder & SaaS Entrepreneur" />
-	<meta name="description" content="Founder of supergrow.ai and videogrow.ai. Ex-GoJek, Ex-Amazon, entrepreneur passionate about creating products for creators." />
-	<meta name="keywords" content="Deven Bhooshan, Supergrow.ai, videogrow.ai, LinkedIn creator tools, SaaS, startup founder, product led growth" />
-	<meta name="author" content="Deven Bhooshan" />
+	<title>{{ page.my_name }} - {{ page.meta_short_title }}</title>
+	<meta name="title" content="{{ page.my_name }} - {{ page.meta_short_title }}" />
+	<meta name="description" content="{{ page.meta_description }}" />
+	<meta name="keywords" content="{{ page.my_name }}, Supergrow.ai, {{ page.videogrow_domain }}, LinkedIn creator tools, SaaS, startup founder, product led growth" />
+	<meta name="author" content="{{ page.my_name }}" />
 
 	<!-- Open Graph / Facebook -->
 	<meta property="og:type" content="website" />
-	<meta property="og:url" content="https://devenbhooshan.in" />
-	<meta property="og:title" content="Deven Bhooshan - Founder & SaaS Entrepreneur" />
-	<meta property="og:description" content="Founder of supergrow.ai and videogrow.ai. Ex-GoJek, Ex-Amazon, entrepreneur passionate about creating products for creators." />
+	<meta property="og:url" content="{{ page.my_website_url }}" />
+	<meta property="og:title" content="{{ page.my_name }} - {{ page.meta_short_title }}" />
+	<meta property="og:description" content="{{ page.meta_description }}" />
 	<meta property="og:image" content="https://ckfwvufqcepsjlnnrzqi.supabase.co/storage/v1/object/public/company/team/e0a967c0-d7f5-4a10-afbf-7887fedfb3fd.jpg" />
 
 	<!-- Twitter -->
 	<meta property="twitter:card" content="summary_large_image" />
-	<meta property="twitter:url" content="https://devenbhooshan.in" />
-	<meta property="twitter:title" content="Deven Bhooshan - Founder & SaaS Entrepreneur" />
-	<meta property="twitter:description" content="Founder of supergrow.ai and videogrow.ai. Ex-GoJek, Ex-Amazon, entrepreneur passionate about creating products for creators." />
+	<meta property="twitter:url" content="{{ page.my_website_url }}" />
+	<meta property="twitter:title" content="{{ page.my_name }} - {{ page.meta_short_title }}" />
+	<meta property="twitter:description" content="{{ page.meta_description }}" />
 	<meta property="twitter:image" content="https://ckfwvufqcepsjlnnrzqi.supabase.co/storage/v1/object/public/company/team/e0a967c0-d7f5-4a10-afbf-7887fedfb3fd.jpg" />
 
 	<!-- Schema.org markup -->
@@ -28,8 +39,8 @@
 	{
 		"@context": "https://schema.org",
 		"@type": "Person",
-		"name": "Deven Bhooshan",
-		"url": "https://devenbhooshan.in",
+		"name": "{{ page.my_name }}",
+		"url": "{{ page.my_website_url }}",
 		"image": "/api/placeholder/1200/600",
 		"sameAs": [
 			"https://github.com/devenbhooshan",
@@ -40,12 +51,12 @@
 		"worksFor": {
 			"@type": "Organization",
 			"name": "Supergrow.ai",
-			"url": "https://supergrow.ai",
+			"url": "{{ page.supergrow_url }}",
 			"subOrganization": [
 				{
 					"@type": "Organization",
-					"name": "videogrow.ai",
-					"url": "https://videogrow.ai",
+					"name": "{{ page.videogrow_domain }}",
+					"url": "https://{{ page.videogrow_domain }}",
 					"description": "Video creation platform for LinkedIn creators"
 				}
 			]
@@ -60,13 +71,13 @@
 				"name": "Amazon"
 			}
 		],
-		"description": "Founder of supergrow.ai and videogrow.ai. Ex-GoJek, Ex-Amazon, entrepreneur passionate about creating products for creators.",
+		"description": "{{ page.meta_description }}",
 		"knowsAbout": ["Product Marketing", "SaaS", "Product Led Growth", "Entrepreneurship", "LinkedIn Marketing"]
 	}
 	</script>
 
 	<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="/assets/css/style.css">
 </head>
 <body>
 	<nav class="nav">
@@ -81,9 +92,9 @@
 	<main class="content">
 		<p>Hi! I'm Deven and I create products and businesses. These days, you might find me deep in thought over a chess board — it's my newest passion.</p>
 
-		<p>Currently, I own a product studio that builds SaaS products for creators. Our first product, <a href="https://supergrow.ai">Supergrow.ai</a>, helps more than 2000 professionals build meaningful personal brands on LinkedIn.</p>
+		<p>Currently, I own a product studio that builds SaaS products for creators. Our first product, <a href="{{ page.supergrow_url }}" target="_blank">Supergrow.ai</a>, helps more than 2000 professionals build meaningful personal brands on LinkedIn.</p>
 
-		<p>Our latest product, <a href="https://videogrow.ai"  target="_blank">Videogrow.ai</a>, empowers creators to craft engaging, viral videos for LinkedIn and other social platforms.</p>
+		<p>Our latest product, <a href="https://{{ page.videogrow_domain }}"  target="_blank">{{ page.videogrow_domain }}</a>, empowers creators to craft engaging, viral videos for LinkedIn and other social platforms.</p>
 		<p>At heart, I'm a software engineer who sees coding as an art form. This perspective was shaped by my experience at GoJek where I learned to appreciate both the technical elegance and real-world impact of well-crafted software.</p>
 		<p>After working at Amazon, I realized something important - I don't want to be another engineer in a big tech company. I want to build products that I truly care about.</p>
 
