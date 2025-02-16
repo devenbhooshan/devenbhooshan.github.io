@@ -1,0 +1,34 @@
+---
+layout: default
+---
+<main class="content">
+    <article class="post">
+        <div class="banner">
+            {% if page.image %}
+            <img src="{{ page.image }}" alt="{{ page.title }}">
+            {% else %}
+            <img src="/assets/images/default-banner.jpg" alt="{{ page.title }}">
+            {% endif %}
+        </div>
+
+        <main>
+            <header class="post-header">
+                <h1>{{ page.title }}</h1>
+                <div class="date">{{ page.date | date: "%B %d, %Y" }}</div>
+            </header>
+
+            <div class="content">
+                {{ content }}
+            </div>
+
+            <div class="post-navigation">
+                {% if page.previous.url %}
+                <a href="{{page.previous.url}}">&larr; {{page.previous.title}}</a>
+                {% endif %}
+                {% if page.next.url %}
+                <a href="{{page.next.url}}">{{page.next.title}} &rarr;</a>
+                {% endif %}
+            </div>
+        </main>
+    </article>
+</main>

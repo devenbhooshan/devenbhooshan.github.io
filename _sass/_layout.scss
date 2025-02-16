@@ -1,0 +1,17 @@
+nav {
+  position: fixed;
+  top: 1rem;
+  right: 1rem;
+  z-index: 10;
+
+  .nav-link {
+      background: white;
+      padding: 0.25rem 0.75rem;
+      font-size: 14px;
+      border-radius: 4px;
+
+      &:hover {
+          background: #f9f9f9;
+      }
+  }
+}
