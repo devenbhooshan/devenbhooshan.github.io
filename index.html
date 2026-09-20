@@ -1,171 +1,203 @@
 ---
-supergrow_domain: Supergrow.ai
+layout: null
+title: Deven Bhooshan
+description: >-
+  Deven Bhooshan is the founder of Supergrow and WarmDogo, building tools that help
+  B2B teams grow on LinkedIn. Previously an engineer at GoJek and Amazon.
+image: /assets/img/og-deven-bhooshan.jpg
 supergrow_url: https://supergrow.ai
+warmdogo_url: https://www.warmdogo.ai
+blog_url: https://blog.devenbhooshan.in
 my_name: Deven Bhooshan
-meta_description: Founder of supergrow.ai and videogrow.ai. Ex-GoJek, Ex-Amazon, entrepreneur passionate about creating products for creators.
-meta_short_title: Founder & SaaS Entrepreneur
 my_website_url: https://devenbhooshan.in
-videogrow_domain: Videogrow.ai
-
 ---
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>{{ page.my_name }} - {{ page.meta_short_title }}</title>
-	<meta name="title" content="{{ page.my_name }} - {{ page.meta_short_title }}" />
-	<meta name="description" content="{{ page.meta_description }}" />
-	<meta name="keywords" content="{{ page.my_name }}, Supergrow.ai, {{ page.videogrow_domain }}, LinkedIn creator tools, SaaS, startup founder, product led growth" />
-	<meta name="author" content="{{ page.my_name }}" />
+	<meta name="theme-color" content="#faf7f0" media="(prefers-color-scheme: light)">
+	<meta name="theme-color" content="#111a16" media="(prefers-color-scheme: dark)">
 
-	<!-- Open Graph / Facebook -->
-	<meta property="og:type" content="website" />
-	<meta property="og:url" content="{{ page.my_website_url }}" />
-	<meta property="og:title" content="{{ page.my_name }} - {{ page.meta_short_title }}" />
-	<meta property="og:description" content="{{ page.meta_description }}" />
-	<meta property="og:image" content="https://ckfwvufqcepsjlnnrzqi.supabase.co/storage/v1/object/public/company/team/e0a967c0-d7f5-4a10-afbf-7887fedfb3fd.jpg" />
+	{% seo %}
 
-	<!-- Twitter -->
-	<meta property="twitter:card" content="summary_large_image" />
-	<meta property="twitter:url" content="{{ page.my_website_url }}" />
-	<meta property="twitter:title" content="{{ page.my_name }} - {{ page.meta_short_title }}" />
-	<meta property="twitter:description" content="{{ page.meta_description }}" />
-	<meta property="twitter:image" content="https://ckfwvufqcepsjlnnrzqi.supabase.co/storage/v1/object/public/company/team/e0a967c0-d7f5-4a10-afbf-7887fedfb3fd.jpg" />
+	<link rel="icon" href="/favicon.ico" sizes="any">
+	<link rel="apple-touch-icon" href="/assets/img/deven-portrait.jpg">
+	<link rel="preload" as="image" href="/assets/img/deven-portrait.jpg" fetchpriority="high">
 
-	<!-- Schema.org markup -->
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400..700;1,9..144,400..600&family=Newsreader:ital,opsz,wght@0,6..72,300..600;1,6..72,300..500&display=swap" rel="stylesheet">
+	<link rel="stylesheet" href="/assets/css/style.css?v={{ site.time | date: '%s' }}">
+
 	<script type="application/ld+json">
 	{
 		"@context": "https://schema.org",
-		"@type": "Person",
-		"name": "{{ page.my_name }}",
+		"@type": "ProfilePage",
 		"url": "{{ page.my_website_url }}",
-		"image": "/api/placeholder/1200/600",
-		"sameAs": [
-			"https://github.com/devenbhooshan",
-			"https://linkedin.com/in/devenbhooshan",
-			"https://twitter.com/devenbhooshan"
-		],
-		"jobTitle": "Founder & CEO",
-		"worksFor": {
-			"@type": "Organization",
-			"name": "Supergrow.ai",
-			"url": "{{ page.supergrow_url }}",
-			"subOrganization": [
-				{
-					"@type": "Organization",
-					"name": "{{ page.videogrow_domain }}",
-					"url": "https://{{ page.videogrow_domain }}",
-					"description": "Video creation platform for LinkedIn creators"
+		"name": "{{ page.my_name }} — Founder of Supergrow",
+		"mainEntity": {
+			"@type": "Person",
+			"@id": "{{ page.my_website_url }}/#person",
+			"name": "{{ page.my_name }}",
+			"givenName": "Deven",
+			"familyName": "Bhooshan",
+			"url": "{{ page.my_website_url }}",
+			"image": "{{ page.my_website_url }}/assets/img/og-deven-bhooshan.jpg",
+			"jobTitle": "Founder",
+			"description": "{{ page.description }}",
+			"nationality": "Indian",
+			"homeLocation": {
+				"@type": "Place",
+				"address": {
+					"@type": "PostalAddress",
+					"addressLocality": "Navi Mumbai",
+					"addressRegion": "Maharashtra",
+					"addressCountry": "IN"
 				}
-			]
-		},
-		"alumniOf": [
-			{
-				"@type": "Organization",
-				"name": "GoJek"
 			},
-			{
+			"sameAs": [
+				"https://github.com/devenbhooshan",
+				"https://www.linkedin.com/in/devenbhooshan",
+				"https://twitter.com/devenbhooshan",
+				"https://blog.devenbhooshan.in"
+			],
+			"worksFor": {
 				"@type": "Organization",
-				"name": "Amazon"
-			}
-		],
-		"description": "{{ page.meta_description }}",
-		"knowsAbout": ["Product Marketing", "SaaS", "Product Led Growth", "Entrepreneurship", "LinkedIn Marketing"]
+				"name": "Supergrow",
+				"url": "{{ page.supergrow_url }}",
+				"description": "Helps B2B teams turn employee voices into growth engines on LinkedIn."
+			},
+			"alumniOf": [
+				{ "@type": "Organization", "name": "GoJek", "url": "https://www.gojek.io" },
+				{ "@type": "Organization", "name": "Amazon", "url": "https://www.amazon.com" }
+			],
+			"knowsAbout": [
+				"SaaS",
+				"Product-led growth",
+				"Bootstrapped startups",
+				"LinkedIn marketing",
+				"Software engineering",
+				"Employee advocacy"
+			]
+		}
 	}
 	</script>
-
-	<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="/assets/css/style.css">
 </head>
 <body>
-	<nav class="nav">
-		<a href="https://blog.devenbhooshan.in/from-zero-to-250k-arr-the-indie-hackers-playbook" target="_blank">Blog</a>
-	</nav>
+	<a class="skip-link" href="#main">Skip to content</a>
 
-	<div class="banner">
-		<div class="overlay"></div>
-		<img src="https://ckfwvufqcepsjlnnrzqi.supabase.co/storage/v1/object/public/company/team/e0a967c0-d7f5-4a10-afbf-7887fedfb3fd.jpg" alt="Banner">
+	<div class="page">
+		<header class="masthead">
+			<nav class="masthead__nav" aria-label="Primary">
+				<a href="{{ page.blog_url }}">Blog</a>
+			</nav>
+		</header>
+
+		<main id="main">
+
+			<section class="hero">
+				<div class="hero__portrait">
+					<img src="/assets/img/deven-portrait.jpg"
+					     width="420" height="560"
+					     alt="Deven Bhooshan on a hillside in the Himalayan forest"
+					     fetchpriority="high" decoding="async">
+				</div>
+				<div class="hero__text">
+					<h1 class="hero__name">Deven<br>Bhooshan</h1>
+					<p class="hero__role">Founder of <a href="{{ page.supergrow_url }}">Supergrow</a> and <a href="{{ page.warmdogo_url }}">WarmDogo</a>.</p>
+				</div>
+			</section>
+
+			<section class="row row--intro">
+				<div class="row__aside">
+					<div class="chess" role="img" aria-label="A chess knight, mid-move">
+						<span class="chess__piece">&#9822;</span>
+					</div>
+				</div>
+				<div class="row__body">
+					<p class="lead">Hi! I'm Deven and I create products and businesses. Recently, I've fallen in love with chess (and I suck at it). My girlfriend puts up with all of it, which makes her easily the best thing in my life.</p>
+				</div>
+			</section>
+
+			<section class="row" aria-labelledby="now-label">
+				<div class="row__aside"><h2 class="row__label" id="now-label">Now</h2></div>
+				<div class="row__body">
+					<p>I'm building <a href="{{ page.supergrow_url }}">Supergrow</a> — helping B2B teams turn employee voices into growth engines. We help companies unlock the power of their employees' personal brands on LinkedIn to drive business growth.</p>
+					<p>More recently I started <a href="{{ page.warmdogo_url }}">WarmDogo</a>, an outbound agent for LinkedIn that finds warm leads in the signals people already give off.</p>
+				</div>
+			</section>
+
+			<section class="row" aria-labelledby="before-label">
+				<div class="row__aside"><h2 class="row__label" id="before-label">Before</h2></div>
+				<div class="row__body">
+					<p>At heart, I'm a software engineer who sees coding as an art form. This perspective was shaped by my experience at GoJek where I learned to appreciate both the technical elegance and real-world impact of well-crafted software.</p>
+					<p>After working at Amazon, I realized something important — I don't want to be another engineer in a big tech company. I want to build products that I truly care about.</p>
+				</div>
+			</section>
+
+			<section class="row" aria-labelledby="writing-label">
+				<div class="row__aside"><h2 class="row__label" id="writing-label">Writing</h2></div>
+				<div class="row__body">
+					<ul class="index">
+						<li class="index__item">
+							<a href="{{ page.blog_url }}/the-corner-table">
+								<span class="index__title">The Corner Table</span>
+								<span class="index__source">Blog</span>
+							</a>
+						</li>
+						<li class="index__item">
+							<a href="{{ page.blog_url }}/from-zero-to-250k-arr-the-indie-hackers-playbook">
+								<span class="index__title">From Zero to $230K ARR: The Indie Hacker's Playbook</span>
+								<span class="index__source">Blog</span>
+							</a>
+						</li>
+						<li class="index__item">
+							<a href="https://www.linkedin.com/posts/devenbhooshan_2025-taught-me-that-life-doesnt-wait-for-activity-7411277366540378112-EK-f">
+								<span class="index__title">2025 Recap</span>
+								<span class="index__source">LinkedIn</span>
+							</a>
+						</li>
+						<li class="index__item">
+							<a href="https://www.linkedin.com/feed/update/urn:li:activity:7249395634561036288/">
+								<span class="index__title">"Ship fast" doesn't mean shipping subpar products</span>
+								<span class="index__source">LinkedIn</span>
+							</a>
+						</li>
+						<li class="index__item">
+							<a href="https://x.com/devenbhooshan/status/1785911415267897398">
+								<span class="index__title">Are you an engineer turned founder?</span>
+								<span class="index__source">X</span>
+							</a>
+						</li>
+						<li class="index__item">
+							<a href="https://www.youtube.com/watch?v=BNr1JOQdSN0&t=52s">
+								<span class="index__title">StartStory Talk: The Initial Journey of Supergrow</span>
+								<span class="index__source">Video</span>
+							</a>
+						</li>
+					</ul>
+				</div>
+			</section>
+
+			<section class="row row--contact" aria-labelledby="reach-label">
+				<div class="row__aside"><h2 class="row__label" id="reach-label">Elsewhere</h2></div>
+				<div class="row__body">
+					<p>I'm always excited to connect with fellow creators, engineers, and entrepreneurs. Feel free to reach out!</p>
+					<ul class="elsewhere">
+						<li><a href="https://linkedin.com/in/devenbhooshan">LinkedIn</a></li>
+						<li><a href="https://twitter.com/devenbhooshan">X</a></li>
+						<li><a href="https://github.com/devenbhooshan">GitHub</a></li>
+						<li><a href="mailto:devenbhooshan@gmail.com">Email</a></li>
+					</ul>
+				</div>
+			</section>
+
+		</main>
+
+		<footer class="colophon">
+			<p>Navi Mumbai, India</p>
+		</footer>
 	</div>
-
-	<main class="content">
-		<p>Hi! I'm Deven and I create products and businesses. Recently, I've fallen in love with chess (and I suck at it).</p>
-
-		<p>I'm building <a href="{{ page.supergrow_url }}" target="_blank">Supergrow</a> - helping B2B teams turn employee voices into growth engines. We help companies unlock the power of their employees' personal brands on LinkedIn to drive business growth.</p>
-
-		<p>At heart, I'm a software engineer who sees coding as an art form. This perspective was shaped by my experience at GoJek where I learned to appreciate both the technical elegance and real-world impact of well-crafted software.</p>
-		<p>After working at Amazon, I realized something important - I don't want to be another engineer in a big tech company. I want to build products that I truly care about.</p>
-
-		<div class="featured-posts">
-			<p class="posts-title">Some thoughts I've shared:</p>
-			<div class="posts-list">
-				<a href="https://blog.devenbhooshan.in/the-corner-table" class="post-item" target="_blank">
-					<span class="post-platform">
-						<svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-							<circle cx="12" cy="12" r="10" />
-							<line x1="2" y1="12" x2="22" y2="12" />
-							<path d="M12 2a15.3 15.3 0 0 1 0 20M12 2a15.3 15.3 0 0 0 0 20" />
-						</svg>
-					</span>
-					<span class="post-text">The Corner Table</span>
-				</a>
-				<a href="https://www.linkedin.com/posts/devenbhooshan_2025-taught-me-that-life-doesnt-wait-for-activity-7411277366540378112-EK-f" class="post-item" target="_blank">
-					<span class="post-platform">
-						<svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect width="4" height="12" x="2" y="9"/><circle cx="4" cy="4" r="2"/></svg>
-					</span>
-					<span class="post-text">2025 Recap</span>
-				</a>
-				<a href="https://www.youtube.com/watch?v=BNr1JOQdSN0&t=52s" class="post-item" target="_blank">
-					<span class="post-platform">
-						<svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-							<polygon points="5,3 19,12 5,21" />
-						</svg>
-					</span>
-					<span class="post-text">StartStory Talk: The Initial Journey of Supergrow</span>
-				</a>
-				<a href="https://blog.devenbhooshan.in/from-zero-to-250k-arr-the-indie-hackers-playbook" class="post-item" target="_blank">
-					<span class="post-platform">
-						<svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-							<circle cx="12" cy="12" r="10" />
-							<line x1="2" y1="12" x2="22" y2="12" />
-							<path d="M12 2a15.3 15.3 0 0 1 0 20M12 2a15.3 15.3 0 0 0 0 20" />
-						</svg>
-					</span>
-					<span class="post-text">From Zero to $230K ARR: The Indie Hacker's Playbook</span>
-				</a>
-				<a href="https://x.com/devenbhooshan/status/1785911415267897398" class="post-item" target="_blank">
-					<span class="post-platform">
-						<svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M22 4s-.7 2.1-2 3.4c1.6 10-9.4 17.3-18 11.6 2.2.1 4.4-.6 6-2C3 15.5.5 9.6 3 5c2.2 2.6 5.6 4.1 9 4-.9-4.2 4-6.6 7-3.8 1.1 0 3-1.2 3-1.2z"/></svg>
-					</span>
-					<span class="post-text">Are you an engineer turned founder?</span>
-				</a>
-				<a href="https://www.linkedin.com/feed/update/urn:li:activity:7249395634561036288/" class="post-item" target="_blank">
-					<span class="post-platform">
-						<svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect width="4" height="12" x="2" y="9"/><circle cx="4" cy="4" r="2"/></svg>
-					</span>
-					<span class="post-text">"Ship fast" doesn't mean shipping subpar products.</span>
-				</a>
-			</div>
-		</div>
-
-		<div class="links">
-			<p>I'm always excited to connect with fellow creators, engineers, and entrepreneurs. Feel free to reach out!</p>
-			<div class="social">
-				<a href="https://linkedin.com/in/devenbhooshan" target="_blank">
-					<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect width="4" height="12" x="2" y="9"/><circle cx="4" cy="4" r="2"/></svg>
-				</a>
-				<a href="https://twitter.com/devenbhooshan" target="_blank">
-					<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M22 4s-.7 2.1-2 3.4c1.6 10-9.4 17.3-18 11.6 2.2.1 4.4-.6 6-2C3 15.5.5 9.6 3 5c2.2 2.6 5.6 4.1 9 4-.9-4.2 4-6.6 7-3.8 1.1 0 3-1.2 3-1.2z"/></svg>
-				</a>
-				<a href="mailto:devenbhooshan@gmail.com" target="_blank">
-					<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect width="20" height="16" x="2" y="4" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
-				</a>
-				<a href="https://github.com/devenbhooshan" target="_blank">
-					<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M15 22v-4a4.8 4.8 0 0 0-1-3.5c3 0 6-2 6-5.5.08-1.25-.27-2.48-1-3.5.28-1.15.28-2.35 0-3.5 0 0-1 0-3 1.5-2.64-.5-5.36-.5-8 0C6 2 5 2 5 2c-.3 1.15-.3 2.35 0 3.5A5.403 5.403 0 0 0 4 9c0 3.5 3 5.5 6 5.5-.39.49-.68 1.05-.85 1.65-.17.6-.22 1.23-.15 1.85v4"/><path d="M9 18c-4.51 2-5-2-7-2"/></svg>
-				</a>
-			</div>
-		</div>
-	</main>
 </body>
 </html>

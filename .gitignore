@@ -1,5 +1,9 @@
 _site*
 .sass-cache
 .jekyll-metadata
+.jekyll-cache/
 *backup/
 .idea
+vendor/
+.bundle/
+.DS_Store

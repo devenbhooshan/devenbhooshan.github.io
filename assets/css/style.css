@@ -1,144 +1,314 @@
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
+/* ---------------------------------------------------------------
+   Deven Bhooshan — devenbhooshan.in
+   Palette drawn from a boxwood chessboard: paper, board green, sage.
+   --------------------------------------------------------------- */
+
+:root {
+	--paper:      #faf7f0;
+	--paper-deep: #f2ede1;
+	--ink:        #14231c;
+	--ink-soft:   #4c5c53;
+	--board:      #2f5d50;
+	--sage:       #9db3a8;
+	--rule:       #e5dfd2;
+
+	--measure: 34rem;
+	--gutter: 8.5rem;
+	--gap: 3rem;
 }
+
+@media (prefers-color-scheme: dark) {
+	:root:not([data-theme="light"]) {
+		--paper:      #111a16;
+		--paper-deep: #16211c;
+		--ink:        #eae4d7;
+		--ink-soft:   #9aa9a0;
+		--board:      #86bda9;
+		--sage:       #55695f;
+		--rule:       #253129;
+	}
+}
+
+:root[data-theme="dark"] {
+		--paper:      #111a16;
+		--paper-deep: #16211c;
+		--ink:        #eae4d7;
+		--ink-soft:   #9aa9a0;
+		--board:      #86bda9;
+		--sage:       #55695f;
+		--rule:       #253129;
+	}
+
+*, *::before, *::after { box-sizing: border-box; }
+
+html { -webkit-text-size-adjust: 100%; }
 
 body {
-  font-family: 'Roboto', sans-serif;
-  font-size: 14px;
-  line-height: 1.5;
-  color: #333;
-  background: #fff;
+	margin: 0;
+	background: var(--paper);
+	color: var(--ink);
+	font-family: "Newsreader", Georgia, "Times New Roman", serif;
+	font-size: 1.125rem;
+	line-height: 1.75;
+	font-weight: 380;
+	font-optical-sizing: auto;
+	-webkit-font-smoothing: antialiased;
+	text-rendering: optimizeLegibility;
 }
+
+img { max-width: 100%; height: auto; display: block; }
+
+.skip-link {
+	position: absolute;
+	left: -9999px;
+	top: 0;
+	background: var(--ink);
+	color: var(--paper);
+	padding: 0.6rem 1rem;
+	z-index: 10;
+	text-decoration: none;
+}
+.skip-link:focus { left: 0; }
+
+:focus-visible {
+	outline: 2px solid var(--board);
+	outline-offset: 3px;
+	border-radius: 1px;
+}
+
+/* --- shell ----------------------------------------------------- */
+
+.page {
+	max-width: calc(var(--gutter) + var(--gap) + var(--measure));
+	margin: 0 auto;
+	padding: 2rem 1.5rem 5rem;
+}
+
+/* --- masthead -------------------------------------------------- */
+
+.masthead {
+	display: flex;
+	align-items: center;
+	justify-content: flex-end;
+	gap: 1rem;
+	padding-bottom: 3.5rem;
+}
+
+.masthead__nav a {
+	font-size: 0.95rem;
+	letter-spacing: 0.01em;
+}
+
+/* --- hero ------------------------------------------------------ */
+
+.hero {
+	display: grid;
+	grid-template-columns: var(--gutter) 1fr;
+	gap: var(--gap);
+	align-items: start;
+	padding: 1rem 0 4rem;
+}
+
+.hero__portrait { margin-top: 0.5rem; }
+
+.hero__portrait img {
+	width: 100%;
+	height: auto;
+	aspect-ratio: 3 / 4;
+	object-fit: cover;
+	filter: saturate(0.92) contrast(1.02);
+}
+
+.hero__text { grid-column: 2; }
+
+.hero__name {
+	font-family: "Fraunces", Georgia, serif;
+	font-variation-settings: "SOFT" 0, "WONK" 1;
+	font-weight: 500;
+	font-size: clamp(3.1rem, 10vw, 5.3rem);
+	line-height: 0.94;
+	letter-spacing: -0.022em;
+	margin: 0 0 1.1rem;
+}
+
+.hero__role {
+	font-style: italic;
+	font-size: 1.28rem;
+	line-height: 1.45;
+	color: var(--ink-soft);
+	margin: 0;
+	max-width: 46ch;
+}
+
+/* --- rows ------------------------------------------------------ */
+
+.row {
+	display: grid;
+	grid-template-columns: var(--gutter) 1fr;
+	gap: var(--gap);
+	padding: 2.75rem 0;
+	border-top: 1px solid var(--rule);
+}
+
+.row__label {
+	font-family: "Newsreader", Georgia, serif;
+	font-style: italic;
+	font-weight: 400;
+	font-size: 1.05rem;
+	color: var(--ink-soft);
+	margin: 0;
+	text-align: right;
+	line-height: 1.75;
+}
+
+.row__body > p { margin: 0 0 1.15rem; max-width: 62ch; }
+.row__body > p:last-child { margin-bottom: 0; }
+
+.lead {
+	font-size: 1.32rem;
+	line-height: 1.6;
+}
+
+.row--intro { border-top: none; padding-top: 0; }
+
+/* --- the knight ------------------------------------------------ */
+/* Deven's line about chess, given a mark of its own. */
+
+.chess {
+	margin-left: auto;
+	width: max-content;
+	font-size: 2.9rem;
+	line-height: 1;
+	color: var(--board);
+	user-select: none;
+}
+
+.chess__piece {
+	display: block;
+	animation: knight-hop 1.15s cubic-bezier(0.34, 0.8, 0.3, 1) 0.65s both;
+}
+
+/* one L-shaped hop, once, on arrival */
+@keyframes knight-hop {
+	0%   { transform: translate(0, 0); }
+	45%  { transform: translate(0.24em, -0.46em); }
+	100% { transform: translate(0.34em, 0); }
+}
+
+/* --- writing index --------------------------------------------- */
+
+.index {
+	list-style: none;
+	margin: 0;
+	padding: 0;
+}
+
+.index__item + .index__item { border-top: 1px solid var(--rule); }
+
+.index__item a {
+	display: flex;
+	align-items: baseline;
+	justify-content: space-between;
+	gap: 1.5rem;
+	padding: 0.72rem 0;
+	text-decoration: none;
+	border-bottom: none;
+}
+
+.index__title {
+	line-height: 1.4;
+	border-bottom: 1px solid transparent;
+	transition: border-color 0.18s ease;
+}
+
+.index__item a:hover .index__title { border-bottom-color: var(--sage); }
+
+.index__source {
+	flex: none;
+	font-style: italic;
+	font-size: 0.9rem;
+	color: var(--ink-soft);
+}
+
+/* --- elsewhere -------------------------------------------------- */
+
+.elsewhere {
+	list-style: none;
+	display: flex;
+	flex-wrap: wrap;
+	gap: 0 1.5rem;
+	margin: 1.15rem 0 0;
+	padding: 0;
+}
+
+/* --- links ------------------------------------------------------ */
 
 a {
-  color: #333;
-  text-decoration: none;
+	color: inherit;
+	text-decoration: none;
+	border-bottom: 1px solid var(--sage);
+	transition: border-color 0.18s ease, color 0.18s ease;
 }
 
-.nav {
-  position: absolute;
-  top: 1rem;
-  right: 1rem;
-  z-index: 2;
+a:hover { border-bottom-color: var(--board); color: var(--board); }
+
+/* --- colophon ---------------------------------------------------- */
+
+.colophon {
+	margin-top: 3rem;
+	padding-top: 1.75rem;
+	border-top: 1px solid var(--rule);
+	display: grid;
+	grid-template-columns: var(--gutter) 1fr;
+	gap: var(--gap);
 }
 
-.nav a {
-  color: #333;
-  font-size: 13px;
-  background: white;
-  padding: 4px 12px;
-  border-radius: 4px;
+.colophon p {
+	grid-column: 2;
+	margin: 0;
+	font-style: italic;
+	font-size: 0.95rem;
+	color: var(--ink-soft);
 }
 
-.banner {
-  position: relative;
-  height: 20vh;
-  overflow: hidden;
-  max-width: 600px;
-  margin: 0 auto;
+/* --- narrow ------------------------------------------------------ */
+
+@media (max-width: 40rem) {
+	:root { --gap: 1.5rem; }
+
+	.page { padding: 1.5rem 1.25rem 4rem; }
+
+	.hero,
+	.row,
+	.colophon {
+		grid-template-columns: 1fr;
+	}
+
+	.hero__text { grid-column: 1; }
+
+	.hero { padding: 0.25rem 0 2.25rem; gap: 1.5rem; }
+
+	.hero__portrait { width: 8.5rem; margin-top: 0; }
+
+	.row { padding: 1.9rem 0; gap: 0.6rem; }
+
+	.row__label { text-align: left; }
+
+	.colophon p { grid-column: 1; }
+
+	/* keep the knight with its sentence, above it like the other markers */
+	.row--intro { padding-top: 0; }
+	.row--intro .row__aside { order: 0; margin: 0 0 0.1rem; }
+
+	.chess { margin-left: 0; font-size: 2.1rem; }
+
+	/* source stays on the right, titles wrap under it */
+	.index__item a { flex-direction: row; gap: 1rem; padding: 0.8rem 0; }
+
+	.index__title { flex: 1 1 auto; }
 }
 
-.banner img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-}
-
-.overlay {
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background: rgba(0, 0, 0, 0.3);
-}
-
-.content {
-  max-width: 600px;
-  margin: 0 auto;
-  padding: 2rem 1rem;
-}
-
-h1 {
-  font-size: 1.5rem;
-  margin-bottom: 1rem;
-  font-weight: normal;
-}
-
-p {
-  margin-bottom: 1rem;
-  color: #666;
-  font-weight: 300;
-}
-
-.featured-posts {
-  margin-top: 2rem;
-  padding-top: 2rem;
-  border-top: 1px solid #eee;
-}
-
-.posts-title {
-  font-size: 14px;
-  color: #666;
-  margin-bottom: 1rem;
-}
-
-.posts-list {
-  display: flex;
-  flex-direction: column;
-}
-
-.post-item {
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-  color: #333;
-  font-size: 13px;
-  padding: 0.5rem;
-  border-radius: 4px;
-  transition: background-color 0.2s;
-}
-
-.post-item:hover {
-  background-color: #f5f5f5;
-}
-
-.post-platform {
-  color: #666;
-  display: flex;
-  align-items: center;
-}
-
-.post-text {
-  line-height: 1.4;
-}
-
-.links {
-  margin-top: 2rem;
-  padding-top: 1rem;
-  border-top: 1px solid #eee;
-}
-
-.social {
-  display: flex;
-  gap: 1rem;
-  margin-top: 1rem;
-}
-
-.social svg {
-  width: 20px;
-  height: 20px;
-  opacity: 0.7;
-}
-
-@media (max-width: 600px) {
-  .banner {
-      height: 40vh;
-  }
-
-  .content {
-      padding: 1.5rem 1rem;
-  }
+@media (prefers-reduced-motion: reduce) {
+	.chess__piece { animation: none; transform: translate(0.34em, 0); }
+	* { transition-duration: 0.01ms !important; }
 }

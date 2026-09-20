@@ -1,4 +1,45 @@
+title: Deven Bhooshan
+tagline: Founder of Supergrow
+description: >-
+  Deven Bhooshan is the founder of Supergrow and WarmDogo, building tools that help
+  B2B teams grow on LinkedIn. Previously an engineer at GoJek and Amazon.
+url: https://devenbhooshan.in
+baseurl: ""
+lang: en_US
+timezone: Asia/Kolkata
+
+author:
+  name: Deven Bhooshan
+  twitter: devenbhooshan
+
+twitter:
+  username: devenbhooshan
+  card: summary_large_image
+
+logo: /assets/img/og-deven-bhooshan.jpg
+
+social:
+  name: Deven Bhooshan
+  links:
+    - https://www.linkedin.com/in/devenbhooshan
+    - https://twitter.com/devenbhooshan
+    - https://github.com/devenbhooshan
+    - https://blog.devenbhooshan.in
+
+defaults:
+  - scope:
+      path: ""
+    values:
+      image: /assets/img/og-deven-bhooshan.jpg
+
 plugins:
   - jekyll-feed
   - jekyll-sitemap
   - jekyll-seo-tag
+
+exclude:
+  - Gemfile
+  - Gemfile.lock
+  - README.md
+  - vendor
+  - .github
