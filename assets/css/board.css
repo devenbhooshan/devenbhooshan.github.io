@@ -1,0 +1,396 @@
+/* The board: the page is a chessboard, content sits on panes snapped to its squares. */
+
+:root {
+	--cell: 56px;
+	--cols: 10;
+
+	--sq-dark: #243c2d;
+	--sq-light: #2c4836;
+	--paper: #e6e0c6;
+	--ink: #1c2a21;
+	--muted: #5a695d;
+	--rule: rgba(28, 42, 33, 0.16);
+	--hi: #f0c94a;
+	--night: #142219;
+
+	--nag-brilliant: #178f8a;
+	--nag-good: #3a74a3;
+	--nag-interesting: #e8973a;
+	--nag-dubious: #f0c94a;
+	--nag-blunder: #c0392f;
+
+	--font: "Bricolage Grotesque", system-ui, sans-serif;
+}
+
+* { box-sizing: border-box; }
+
+html {
+	background: var(--sq-dark);
+	-webkit-text-size-adjust: 100%;
+	text-size-adjust: 100%;
+}
+
+body {
+	margin: 0;
+	min-height: 100vh;
+	color: var(--ink);
+	font: 400 17px/1.5 var(--font);
+	font-optical-sizing: auto;
+	/* The squares themselves. Top-left square is dark; the canvas matches this parity. */
+	background:
+		repeating-conic-gradient(var(--sq-light) 0 25%, var(--sq-dark) 0 50%)
+		0 0 / calc(var(--cell) * 2) calc(var(--cell) * 2);
+	-webkit-tap-highlight-color: transparent;
+}
+
+#board {
+	position: fixed;
+	inset: 0;
+	width: 100%;
+	height: 100%;
+	z-index: 0;
+	pointer-events: none;
+}
+
+.skip-link {
+	position: absolute;
+	left: var(--cell);
+	top: 8px;
+	z-index: 10;
+	padding: 8px 12px;
+	background: var(--paper);
+	color: var(--ink);
+	transform: translateY(-200%);
+}
+.skip-link:focus { transform: none; }
+
+/* Layout: panes are placed on whole squares. */
+
+.deck {
+	position: relative;
+	z-index: 1;
+	display: flex;
+	flex-wrap: wrap;
+	align-items: flex-start;
+	gap: var(--cell);
+	min-height: 100vh;
+	padding: calc(var(--cell) * 2) var(--cell);
+}
+
+.pane {
+	background: var(--paper);
+	width: calc(var(--cell) * 8);
+	box-shadow: 0 0 0 1px rgba(20, 34, 25, 0.35);
+}
+
+.pane--drawer { width: calc(var(--cell) * 10); }
+
+.js .pane--drawer:not(.is-open) { display: none; }
+
+.pane--drawer.is-opening {
+	animation: wipe 440ms steps(var(--cols), end) both;
+}
+
+@keyframes wipe {
+	from { clip-path: inset(0 100% 0 0); }
+	to { clip-path: inset(0 0 0 0); }
+}
+
+.pane__in {
+	padding: calc(var(--cell) * 0.5) calc(var(--cell) * 0.5) calc(var(--cell) * 0.6);
+}
+
+/* Type */
+
+.name {
+	margin: 0 0 calc(var(--cell) * 0.5);
+	font-size: calc(var(--cell) * 0.94);
+	line-height: var(--cell);
+	font-weight: 750;
+	font-variation-settings: "opsz" 96;
+	letter-spacing: -0.035em;
+}
+
+.pane p {
+	margin: 0 0 0.9em;
+	max-width: 34em;
+}
+
+.pane a {
+	color: inherit;
+	text-decoration: underline;
+	text-decoration-thickness: 1px;
+	text-underline-offset: 3px;
+	text-decoration-color: rgba(28, 42, 33, 0.4);
+}
+
+.pane a:hover {
+	background: var(--hi);
+	text-decoration-color: var(--ink);
+}
+
+a:focus-visible,
+button:focus-visible,
+h2:focus-visible {
+	outline: 2px solid var(--ink);
+	outline-offset: 2px;
+}
+
+.hint {
+	color: var(--muted);
+	font-size: 15px;
+}
+
+/* The inline knight: a tiny square you can press to make a move. */
+
+.kn {
+	display: inline-grid;
+	place-items: center;
+	width: 1.05em;
+	height: 1.05em;
+	margin: 0 0.08em;
+	padding: 0;
+	border: 0;
+	border-radius: 2px;
+	background: var(--sq-dark);
+	color: var(--paper);
+	font: 400 1em/1 "Apple Symbols", "Segoe UI Symbol", "DejaVu Sans", serif;
+	font-size: 1.45em;
+	vertical-align: -0.2em;
+	cursor: pointer;
+	transition: background-color 120ms;
+}
+.kn:hover { background: var(--hi); color: var(--ink); }
+.kn:active { transform: translateY(1px); }
+
+/* Home navigation */
+
+.moves-nav {
+	list-style: none;
+	margin: calc(var(--cell) * 0.5) 0 0;
+	padding: 0;
+}
+
+.moves-nav a {
+	display: flex;
+	align-items: center;
+	gap: 12px;
+	padding: 6px 0;
+	font-size: 21px;
+	font-weight: 600;
+	letter-spacing: -0.01em;
+	text-decoration: none;
+}
+
+.moves-nav a::before {
+	content: "";
+	flex: none;
+	width: 14px;
+	height: 14px;
+	background: var(--sq-light);
+	transition: background-color 120ms;
+}
+
+.moves-nav a:hover { background: none; }
+.moves-nav a:hover span { background: var(--hi); }
+.moves-nav a[aria-current]::before { background: var(--hi); box-shadow: 0 0 0 1px var(--ink); }
+
+.pane__foot {
+	margin-top: calc(var(--cell) * 0.6);
+	padding-top: 14px;
+	border-top: 1px solid var(--rule);
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: space-between;
+	gap: 8px 16px;
+	font-size: 15px;
+}
+
+.elsewhere {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 4px 16px;
+	margin: 0;
+	padding: 0;
+	list-style: none;
+}
+
+.place { color: var(--muted); margin: 0; }
+
+/* Drawers */
+
+.drawer__head {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	gap: 16px;
+	margin-bottom: calc(var(--cell) * 0.25);
+}
+
+.drawer__head h2 {
+	margin: 0;
+	font-size: calc(var(--cell) * 0.5);
+	line-height: var(--cell);
+	font-weight: 700;
+	letter-spacing: -0.025em;
+}
+
+.close {
+	flex: none;
+	display: grid;
+	place-items: center;
+	width: calc(var(--cell) * 0.6);
+	height: calc(var(--cell) * 0.6);
+	padding: 0;
+	border: 0;
+	border-radius: 2px;
+	background: transparent;
+	color: var(--ink);
+	cursor: pointer;
+}
+.close:hover { background: var(--hi); }
+.close svg { width: 18px; height: 18px; }
+
+/* The game so far: career as annotated moves */
+
+.game {
+	list-style: none;
+	margin: 0;
+	padding: 0;
+	counter-reset: move;
+}
+
+.game li {
+	counter-increment: move;
+	display: grid;
+	grid-template-columns: 2em 1fr;
+	padding: 8px 0;
+	border-top: 1px solid var(--rule);
+}
+
+.game li::before {
+	content: counter(move) ".";
+	font-size: 15px;
+	line-height: 1.6;
+	color: var(--muted);
+	font-variant-numeric: tabular-nums;
+	font-weight: 600;
+}
+
+.game h3 {
+	display: flex;
+	align-items: center;
+	gap: 10px;
+	margin: 0;
+	font-size: 17px;
+	font-weight: 650;
+	letter-spacing: -0.01em;
+}
+
+.game p { margin: 0; font-size: 15.5px; line-height: 1.4; }
+
+.nag {
+	display: inline-grid;
+	place-items: center;
+	min-width: 1.9em;
+	height: 1.5em;
+	padding: 0 0.3em;
+	border-radius: 3px;
+	font-size: 14px;
+	font-weight: 800;
+	letter-spacing: 0.02em;
+	color: #fff;
+}
+.nag--brilliant { background: var(--nag-brilliant); }
+.nag--good { background: var(--nag-good); }
+.nag--interesting { background: var(--nag-interesting); color: var(--ink); }
+.nag--dubious { background: var(--nag-dubious); color: var(--ink); }
+.nag--blunder { background: var(--nag-blunder); }
+
+.key {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 8px 18px;
+	margin: 14px 0 0;
+	padding-top: 14px;
+	border-top: 1px solid var(--rule);
+	font-size: 14px;
+	color: var(--muted);
+}
+.key div { display: flex; align-items: center; gap: 7px; }
+.key dt, .key dd { margin: 0; }
+.key .nag { font-size: 12px; }
+
+/* Writing */
+
+.index {
+	list-style: none;
+	margin: 0;
+	padding: 0;
+}
+
+.index a {
+	display: flex;
+	justify-content: space-between;
+	align-items: baseline;
+	gap: 16px;
+	padding: 11px 0;
+	border-top: 1px solid var(--rule);
+	text-decoration: none;
+}
+
+.index__title { font-weight: 550; }
+.index__source { flex: none; color: var(--muted); font-size: 14px; }
+.index a:hover .index__source { color: var(--ink); }
+
+/* Toast: the board talks back */
+
+.toast {
+	position: fixed;
+	left: auto;
+	right: var(--cell);
+	bottom: calc(var(--cell) * 0.5);
+	z-index: 5;
+	max-width: calc(100vw - 32px);
+	padding: 10px 14px;
+	border-radius: 4px;
+	background: var(--night);
+	color: var(--paper);
+	font-size: 15px;
+	box-shadow: 0 6px 24px rgba(0, 0, 0, 0.35);
+	transform: translateY(8px);
+	opacity: 0;
+	pointer-events: none;
+	transition: opacity 180ms, transform 180ms;
+}
+.toast.is-on { opacity: 1; transform: none; }
+.toast b { color: var(--hi); font-weight: 800; }
+
+/* Phones: the board is exactly eight files wide, like a real one. */
+
+@media (max-width: 759px) {
+	:root { --cols: 8; }
+
+	body { font-size: 16px; }
+
+	.deck {
+		flex-direction: column;
+		flex-wrap: nowrap;
+		padding: calc(var(--cell) * 3) 0 calc(var(--cell) * 2);
+	}
+
+	.pane,
+	.pane--drawer { width: 100%; box-shadow: none; }
+
+	.pane__in { padding-left: max(16px, calc(var(--cell) * 0.4)); padding-right: max(16px, calc(var(--cell) * 0.4)); }
+
+	.name { font-size: calc(var(--cell) * 0.86); }
+	.moves-nav a { font-size: 19px; }
+
+	.toast { right: 16px; left: 16px; bottom: 16px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+	.pane--drawer.is-opening { animation: none; }
+	.toast { transition: none; }
+}

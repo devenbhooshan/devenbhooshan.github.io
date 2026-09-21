@@ -3,7 +3,7 @@ layout: null
 title: Deven Bhooshan
 description: >-
   Deven Bhooshan is the founder of Supergrow and WarmDogo, building tools that help
-  B2B teams grow on LinkedIn. Previously an engineer at GoJek and Amazon.
+  B2B teams grow on LinkedIn. Previously at Amazon, MindIQ and GoJek.
 image: /assets/img/og-deven-bhooshan.jpg
 supergrow_url: https://supergrow.ai
 warmdogo_url: https://www.warmdogo.ai
@@ -16,19 +16,18 @@ my_website_url: https://devenbhooshan.in
 <head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<meta name="theme-color" content="#faf7f0" media="(prefers-color-scheme: light)">
-	<meta name="theme-color" content="#111a16" media="(prefers-color-scheme: dark)">
+	<meta name="theme-color" content="#243c2d">
+	<script>document.documentElement.classList.add("js")</script>
 
 	{% seo %}
 
 	<link rel="icon" href="/favicon.ico" sizes="any">
 	<link rel="apple-touch-icon" href="/assets/img/deven-portrait.jpg">
-	<link rel="preload" as="image" href="/assets/img/deven-portrait.jpg" fetchpriority="high">
 
 	<link rel="preconnect" href="https://fonts.googleapis.com">
 	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-	<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400..700;1,9..144,400..600&family=Newsreader:ital,opsz,wght@0,6..72,300..600;1,6..72,300..500&display=swap" rel="stylesheet">
-	<link rel="stylesheet" href="/assets/css/style.css?v={{ site.time | date: '%s' }}">
+	<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,300..800&display=swap" rel="stylesheet">
+	<link rel="stylesheet" href="/assets/css/board.css?v={{ site.time | date: '%s' }}">
 
 	<script type="application/ld+json">
 	{
@@ -69,8 +68,9 @@ my_website_url: https://devenbhooshan.in
 				"description": "Helps B2B teams turn employee voices into growth engines on LinkedIn."
 			},
 			"alumniOf": [
-				{ "@type": "Organization", "name": "GoJek", "url": "https://www.gojek.io" },
-				{ "@type": "Organization", "name": "Amazon", "url": "https://www.amazon.com" }
+				{ "@type": "Organization", "name": "Amazon", "url": "https://www.amazon.com" },
+				{ "@type": "Organization", "name": "MindIQ" },
+				{ "@type": "Organization", "name": "GoJek", "url": "https://www.gojek.io" }
 			],
 			"knowsAbout": [
 				"SaaS",
@@ -86,118 +86,125 @@ my_website_url: https://devenbhooshan.in
 </head>
 <body>
 	<a class="skip-link" href="#main">Skip to content</a>
+	<canvas id="board" aria-hidden="true"></canvas>
 
-	<div class="page">
-		<header class="masthead">
-			<nav class="masthead__nav" aria-label="Primary">
-				<a href="{{ page.blog_url }}">Blog</a>
-			</nav>
-		</header>
+	<main id="main" class="deck">
 
-		<main id="main">
+		<article class="pane pane--home" id="home">
+			<div class="pane__in">
+				<h1 class="name">Deven<br>Bhooshan</h1>
 
-			<section class="hero">
-				<div class="hero__portrait">
-					<img src="/assets/img/deven-portrait.jpg"
-					     width="420" height="560"
-					     alt="Deven Bhooshan on a hillside in the Himalayan forest"
-					     fetchpriority="high" decoding="async">
-				</div>
-				<div class="hero__text">
-					<h1 class="hero__name">Deven<br>Bhooshan</h1>
-					<p class="hero__role">Founder of <a href="{{ page.supergrow_url }}">Supergrow</a> and <a href="{{ page.warmdogo_url }}">WarmDogo</a>.</p>
-				</div>
-			</section>
+				<p>I build products and businesses. Right now that's <a href="{{ page.supergrow_url }}" target="_blank" rel="noopener">Supergrow</a> and <a href="{{ page.warmdogo_url }}" target="_blank" rel="noopener">WarmDogo</a>, both about helping B2B teams grow on LinkedIn.</p>
+				<p>Before that I worked at Amazon and GoJek, and in between co-founded MindIQ, an AI chatbot startup.</p>
+				<p>Lately I've fallen for chess<button class="kn" type="button" data-knight-move aria-label="Move the knight on the board">&#9822;&#xFE0E;</button>and I suck at it. My girlfriend puts up with all of it, which makes her easily the best thing in my life.</p>
+				<p class="hint">The board is live. Tap or click any square to move the knight.</p>
 
-			<section class="row row--intro">
-				<div class="row__aside">
-					<div class="chess" role="img" aria-label="A chess knight, mid-move">
-						<span class="chess__piece">&#9822;</span>
-					</div>
-				</div>
-				<div class="row__body">
-					<p class="lead">Hi! I'm Deven and I create products and businesses. Recently, I've fallen in love with chess (and I suck at it). My girlfriend puts up with all of it, which makes her easily the best thing in my life.</p>
-				</div>
-			</section>
+				<ul class="moves-nav">
+					<li><a href="#game"><span>The game so far</span></a></li>
+					<li><a href="#writing"><span>Writing</span></a></li>
+					<li><a href="{{ page.blog_url }}" target="_blank" rel="noopener"><span>Blog</span></a></li>
+				</ul>
 
-			<section class="row" aria-labelledby="now-label">
-				<div class="row__aside"><h2 class="row__label" id="now-label">Now</h2></div>
-				<div class="row__body">
-					<p>I'm building <a href="{{ page.supergrow_url }}">Supergrow</a> — helping B2B teams turn employee voices into growth engines. We help companies unlock the power of their employees' personal brands on LinkedIn to drive business growth.</p>
-					<p>More recently I started <a href="{{ page.warmdogo_url }}">WarmDogo</a>, an outbound agent for LinkedIn that finds warm leads in the signals people already give off.</p>
-				</div>
-			</section>
-
-			<section class="row" aria-labelledby="before-label">
-				<div class="row__aside"><h2 class="row__label" id="before-label">Before</h2></div>
-				<div class="row__body">
-					<p>At heart, I'm a software engineer who sees coding as an art form. This perspective was shaped by my experience at GoJek where I learned to appreciate both the technical elegance and real-world impact of well-crafted software.</p>
-					<p>After working at Amazon, I realized something important — I don't want to be another engineer in a big tech company. I want to build products that I truly care about.</p>
-				</div>
-			</section>
-
-			<section class="row" aria-labelledby="writing-label">
-				<div class="row__aside"><h2 class="row__label" id="writing-label">Writing</h2></div>
-				<div class="row__body">
-					<ul class="index">
-						<li class="index__item">
-							<a href="{{ page.blog_url }}/the-corner-table">
-								<span class="index__title">The Corner Table</span>
-								<span class="index__source">Blog</span>
-							</a>
-						</li>
-						<li class="index__item">
-							<a href="{{ page.blog_url }}/from-zero-to-250k-arr-the-indie-hackers-playbook">
-								<span class="index__title">From Zero to $230K ARR: The Indie Hacker's Playbook</span>
-								<span class="index__source">Blog</span>
-							</a>
-						</li>
-						<li class="index__item">
-							<a href="https://www.linkedin.com/posts/devenbhooshan_2025-taught-me-that-life-doesnt-wait-for-activity-7411277366540378112-EK-f">
-								<span class="index__title">2025 Recap</span>
-								<span class="index__source">LinkedIn</span>
-							</a>
-						</li>
-						<li class="index__item">
-							<a href="https://www.linkedin.com/feed/update/urn:li:activity:7249395634561036288/">
-								<span class="index__title">"Ship fast" doesn't mean shipping subpar products</span>
-								<span class="index__source">LinkedIn</span>
-							</a>
-						</li>
-						<li class="index__item">
-							<a href="https://x.com/devenbhooshan/status/1785911415267897398">
-								<span class="index__title">Are you an engineer turned founder?</span>
-								<span class="index__source">X</span>
-							</a>
-						</li>
-						<li class="index__item">
-							<a href="https://www.youtube.com/watch?v=BNr1JOQdSN0&t=52s">
-								<span class="index__title">StartStory Talk: The Initial Journey of Supergrow</span>
-								<span class="index__source">Video</span>
-							</a>
-						</li>
-					</ul>
-				</div>
-			</section>
-
-			<section class="row row--contact" aria-labelledby="reach-label">
-				<div class="row__aside"><h2 class="row__label" id="reach-label">Elsewhere</h2></div>
-				<div class="row__body">
-					<p>I'm always excited to connect with fellow creators, engineers, and entrepreneurs. Feel free to reach out!</p>
-					<ul class="elsewhere">
-						<li><a href="https://linkedin.com/in/devenbhooshan">LinkedIn</a></li>
-						<li><a href="https://twitter.com/devenbhooshan">X</a></li>
-						<li><a href="https://github.com/devenbhooshan">GitHub</a></li>
+				<div class="pane__foot">
+					<ul class="elsewhere" aria-label="Elsewhere">
+						<li><a href="https://linkedin.com/in/devenbhooshan" target="_blank" rel="noopener">LinkedIn</a></li>
+						<li><a href="https://twitter.com/devenbhooshan" target="_blank" rel="noopener">X</a></li>
+						<li><a href="https://github.com/devenbhooshan" target="_blank" rel="noopener">GitHub</a></li>
 						<li><a href="mailto:devenbhooshan@gmail.com">Email</a></li>
 					</ul>
+					<p class="place">Navi Mumbai, India</p>
 				</div>
-			</section>
+			</div>
+		</article>
 
-		</main>
+		<article class="pane pane--drawer" id="game" aria-labelledby="game-title">
+			<div class="pane__in">
+				<header class="drawer__head">
+					<h2 id="game-title" tabindex="-1">The game so far</h2>
+					<button class="close" type="button" aria-label="Close">
+						<svg viewBox="0 0 18 18" aria-hidden="true"><path d="M3 3l12 12M15 3L3 15" stroke="currentColor" stroke-width="2" stroke-linecap="square"/></svg>
+					</button>
+				</header>
 
-		<footer class="colophon">
-			<p>Navi Mumbai, India</p>
-		</footer>
-	</div>
+				<ol class="game">
+					<li>
+						<div>
+							<h3>Amazon <span class="nag nag--dubious" title="Dubious move">?!</span></h3>
+							<p>Good company, wrong game for me.</p>
+						</div>
+					</li>
+					<li>
+						<div>
+							<h3>MindIQ <span class="nag nag--interesting" title="Interesting move">!?</span></h3>
+							<p>Co-founded an AI chatbot builder before bots were a thing. <a href="https://www.techinasia.com/mindiq-ai-chatbots" target="_blank" rel="noopener">Tech in Asia wrote about us</a>.</p>
+						</div>
+					</li>
+					<li>
+						<div>
+							<h3>GoJek <span class="nag nag--good" title="Good move">!</span></h3>
+							<p>Learned that code is a craft, and it still has to ship.</p>
+						</div>
+					</li>
+					<li>
+						<div>
+							<h3>Took a break</h3>
+							<p>Built projects with friends and old colleagues.</p>
+						</div>
+					</li>
+					<li>
+						<div>
+							<h3><a href="{{ page.supergrow_url }}" target="_blank" rel="noopener">Supergrow</a> <span class="nag nag--brilliant" title="Brilliant move">!!</span></h3>
+							<p>Back to building my own. <a href="{{ page.blog_url }}/from-zero-to-250k-arr-the-indie-hackers-playbook" target="_blank" rel="noopener">How it got to $230K ARR</a>.</p>
+						</div>
+					</li>
+					<li>
+						<div>
+							<h3><a href="{{ page.warmdogo_url }}" target="_blank" rel="noopener">WarmDogo</a> <span class="nag nag--interesting" title="Interesting move">!?</span></h3>
+							<p>An outbound agent that finds warm leads on LinkedIn.</p>
+						</div>
+					</li>
+					<li>
+						<div>
+							<h3>Picked up chess <span class="nag nag--blunder" title="Blunder">??</span></h3>
+							<p>Still hanging pieces.</p>
+						</div>
+					</li>
+				</ol>
+
+				<dl class="key" aria-label="What the symbols mean">
+					<div><dt><span class="nag nag--brilliant">!!</span></dt><dd>brilliant</dd></div>
+					<div><dt><span class="nag nag--good">!</span></dt><dd>good</dd></div>
+					<div><dt><span class="nag nag--interesting">!?</span></dt><dd>interesting</dd></div>
+					<div><dt><span class="nag nag--dubious">?!</span></dt><dd>dubious</dd></div>
+					<div><dt><span class="nag nag--blunder">??</span></dt><dd>blunder</dd></div>
+				</dl>
+			</div>
+		</article>
+
+		<article class="pane pane--drawer" id="writing" aria-labelledby="writing-title">
+			<div class="pane__in">
+				<header class="drawer__head">
+					<h2 id="writing-title" tabindex="-1">Writing</h2>
+					<button class="close" type="button" aria-label="Close">
+						<svg viewBox="0 0 18 18" aria-hidden="true"><path d="M3 3l12 12M15 3L3 15" stroke="currentColor" stroke-width="2" stroke-linecap="square"/></svg>
+					</button>
+				</header>
+
+				<ul class="index">
+					<li><a href="{{ page.blog_url }}/the-corner-table" target="_blank" rel="noopener"><span class="index__title">The Corner Table</span><span class="index__source">Blog</span></a></li>
+					<li><a href="{{ page.blog_url }}/from-zero-to-250k-arr-the-indie-hackers-playbook" target="_blank" rel="noopener"><span class="index__title">From Zero to $230K ARR: The Indie Hacker's Playbook</span><span class="index__source">Blog</span></a></li>
+					<li><a href="https://www.linkedin.com/posts/devenbhooshan_2025-taught-me-that-life-doesnt-wait-for-activity-7411277366540378112-EK-f" target="_blank" rel="noopener"><span class="index__title">2025 Recap</span><span class="index__source">LinkedIn</span></a></li>
+					<li><a href="https://www.linkedin.com/feed/update/urn:li:activity:7249395634561036288/" target="_blank" rel="noopener"><span class="index__title">"Ship fast" doesn't mean shipping subpar products</span><span class="index__source">LinkedIn</span></a></li>
+					<li><a href="https://x.com/devenbhooshan/status/1785911415267897398" target="_blank" rel="noopener"><span class="index__title">Are you an engineer turned founder?</span><span class="index__source">X</span></a></li>
+					<li><a href="https://www.youtube.com/watch?v=BNr1JOQdSN0&amp;t=52s" target="_blank" rel="noopener"><span class="index__title">StartStory Talk: The Initial Journey of Supergrow</span><span class="index__source">Video</span></a></li>
+				</ul>
+			</div>
+		</article>
+
+	</main>
+
+	<p class="toast" id="toast" role="status" aria-live="polite"></p>
+
+	<script src="/assets/js/board.js?v={{ site.time | date: '%s' }}" defer></script>
 </body>
 </html>
