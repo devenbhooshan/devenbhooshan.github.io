@@ -52,6 +52,15 @@ body {
 	pointer-events: none;
 }
 
+/* The 3D board fades in over the flat one, and the panes lift off it like cards. */
+.three #board { animation: board-in 900ms ease-out both; }
+.three .pane { box-shadow: 0 0 0 1px rgba(20, 34, 25, 0.35), 0 22px 48px -12px rgba(0, 0, 0, 0.55); }
+
+@keyframes board-in {
+	from { opacity: 0; }
+	to { opacity: 1; }
+}
+
 .skip-link {
 	position: absolute;
 	left: var(--cell);
@@ -163,6 +172,52 @@ h2:focus-visible {
 @media (hover: hover) { .kn:hover { background: var(--hi); color: var(--ink); } }
 .kn:active { transform: translateY(1px); }
 
+/* The knight button again, standing on the 3D board above the piece. */
+
+.board-move {
+	position: fixed;
+	left: 0;
+	top: 0;
+	z-index: 2;
+	display: flex;
+	align-items: center;
+	gap: 7px;
+	padding: 4px 10px 4px 4px;
+	border: 0;
+	border-radius: 3px;
+	background: var(--paper);
+	color: var(--ink);
+	font: 650 14px/1 var(--font);
+	white-space: nowrap;
+	box-shadow: 0 8px 20px -6px rgba(0, 0, 0, 0.5);
+	cursor: pointer;
+	transition: opacity 160ms, background-color 120ms;
+}
+.board-move::after {
+	content: "";
+	position: absolute;
+	left: 50%;
+	bottom: -5px;
+	width: 10px;
+	height: 10px;
+	margin-left: -5px;
+	background: inherit;
+	transform: rotate(45deg);
+}
+.board-move.is-hidden { opacity: 0; pointer-events: none; }
+@media (hover: hover) { .board-move:hover { background: var(--hi); } }
+
+.board-move__kn {
+	display: grid;
+	place-items: center;
+	width: 22px;
+	height: 22px;
+	border-radius: 2px;
+	background: var(--sq-dark);
+	color: var(--paper);
+	font: 400 18px/1 "Apple Symbols", "Segoe UI Symbol", "DejaVu Sans", serif;
+}
+
 /* Home navigation */
 
 .moves-nav {
@@ -264,9 +319,18 @@ h2:focus-visible {
 	counter-increment: move;
 	display: grid;
 	grid-template-columns: 2em 1fr;
-	padding: 8px 0;
+	padding: 7px 0;
 	border-top: 1px solid var(--rule);
 }
+
+/* Title and year share the first row; the sentence runs underneath. */
+.game li > div {
+	display: grid;
+	grid-template-columns: 1fr auto;
+	column-gap: 12px;
+}
+.game li > div > * { grid-column: 1 / -1; }
+.game li > div > h3 { grid-column: 1; grid-row: 1; }
 
 .game li::before {
 	content: counter(move) ".";
@@ -288,6 +352,18 @@ h2:focus-visible {
 }
 
 .game p { margin: 0; font-size: 15.5px; line-height: 1.4; }
+
+.game li > div > .game__year {
+	grid-column: 2;
+	grid-row: 1;
+	align-self: center;
+	color: var(--muted);
+	font-size: 13px;
+	font-weight: 600;
+	line-height: 1.3;
+	letter-spacing: 0.03em;
+	font-variant-numeric: tabular-nums;
+}
 
 .nag {
 	display: inline-grid;
@@ -366,6 +442,68 @@ h2:focus-visible {
 .toast.is-on { opacity: 1; transform: none; }
 .toast b { color: var(--hi); font-weight: 800; }
 
+/* A captured move: its story opens on the board, on the same paper as the panes. */
+
+.capture {
+	position: fixed;
+	left: 0;
+	top: 0;
+	z-index: 4;
+	width: min(360px, calc(100vw - 32px));
+	padding: 16px 18px 16px;
+	background: var(--paper);
+	color: var(--ink);
+	border-left: 6px solid var(--hi);
+	box-shadow: 0 0 0 1px rgba(20, 34, 25, 0.35), 0 24px 56px -12px rgba(0, 0, 0, 0.7);
+	opacity: 0;
+	visibility: hidden;
+	transition: opacity 220ms, visibility 0s 220ms;
+}
+.capture.is-on { opacity: 1; visibility: visible; transition: opacity 220ms; animation: capture-in 420ms cubic-bezier(0.2, 1.3, 0.4, 1) both; }
+.capture.is-blunder { border-left-color: var(--nag-blunder); }
+
+/* Uses `translate` and `scale`, not clip-path, so the shadow survives and the transform that places the card is left alone. */
+@keyframes capture-in {
+	from { translate: 0 12px; scale: 0.96; }
+	to { translate: 0 0; scale: 1; }
+}
+
+.capture__kicker { margin: 0 28px 4px 0; color: var(--muted); font-size: 13px; font-weight: 600; }
+.capture__title { display: flex; align-items: center; gap: 10px; margin: 0 0 6px; font-size: 26px; line-height: 1.15; font-weight: 750; letter-spacing: -0.025em; }
+.capture__title .nag { font-size: 15px; }
+.capture__text { margin: 0; font-size: 16.5px; line-height: 1.45; }
+.capture__text a { color: inherit; text-underline-offset: 3px; text-decoration-color: rgba(28, 42, 33, 0.4); }
+.capture__text a:hover { background: var(--hi); }
+
+.capture__progress { display: flex; gap: 4px; margin: 14px 0 0; padding: 0; list-style: none; }
+.capture__progress li { width: 18px; height: 18px; background: var(--sq-light); opacity: 0.25; }
+.capture__progress li.is-taken { opacity: 1; background: var(--sq-dark); }
+.capture__progress li.is-now { background: var(--hi); box-shadow: 0 0 0 1px var(--ink); }
+.capture__done { margin: 10px 0 0; font-weight: 650; }
+.capture__done:empty { display: none; }
+
+.capture__close {
+	position: absolute;
+	top: 8px;
+	right: 8px;
+	display: grid;
+	place-items: center;
+	width: 30px;
+	height: 30px;
+	padding: 0;
+	border: 0;
+	border-radius: 2px;
+	background: transparent;
+	color: var(--ink);
+	cursor: pointer;
+}
+.capture__close:hover { background: var(--hi); }
+.capture__close svg { width: 16px; height: 16px; }
+
+/* Moves you've taken on the board light up in the list. */
+.game li { transition: background-color 300ms; }
+.game li.is-taken { background: linear-gradient(90deg, rgba(240, 201, 74, 0.3), rgba(240, 201, 74, 0) 70%); }
+
 /* Phones: the board is exactly eight files wide, like a real one. */
 
 @media (max-width: 759px) {
@@ -376,7 +514,8 @@ h2:focus-visible {
 	.deck {
 		flex-direction: column;
 		flex-wrap: nowrap;
-		padding: calc(var(--cell) * 3) 0 calc(var(--cell) * 2);
+		/* Five rows of board above the name: room to play the knight. */
+		padding: calc(var(--cell) * 5) 0 calc(var(--cell) * 2);
 	}
 
 	.pane,
@@ -388,9 +527,17 @@ h2:focus-visible {
 	.moves-nav a { font-size: 19px; }
 
 	.toast { right: 16px; left: 16px; bottom: 16px; }
+
+	/* Docked at the bottom, over the bio: a dark rim keeps it apart from the paper beneath. */
+	.capture {
+		top: auto; left: 12px; right: 12px; bottom: 12px; width: auto;
+		box-shadow: 0 0 0 2px var(--night), 0 0 0 100vmax rgba(20, 34, 25, 0.45), 0 -8px 40px rgba(0, 0, 0, 0.5);
+	}
 }
 
 @media (prefers-reduced-motion: reduce) {
 	.pane--drawer.is-opening { animation: none; }
+	.three #board { animation: none; }
+	.capture.is-on { animation: none; }
 	.toast { transition: none; }
 }

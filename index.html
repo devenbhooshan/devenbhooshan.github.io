@@ -98,7 +98,7 @@ my_website_url: https://devenbhooshan.in
 				<p>I build products and businesses. Right now that's <a href="{{ page.supergrow_url }}" target="_blank" rel="noopener">Supergrow</a>, which helps B2B teams grow on LinkedIn, and <a href="{{ page.warmdogo_url }}" target="_blank" rel="noopener">WarmDogo</a>, an outbound agent that finds warm leads.</p>
 				<p>Before that I worked at Amazon and GoJek, and in between co-founded MindIQ, an AI chatbot startup.</p>
 				<p>Lately I've fallen for chess<button class="kn" type="button" data-knight-move aria-label="Move the knight on the board">&#9822;&#xFE0E;</button>and I suck at it. My girlfriend puts up with all of it, which makes her easily the best thing in my life.</p>
-				<p class="hint">The board is live. Tap or click any square to move the knight.</p>
+				<p class="hint">The board is live. Tap any square to move the knight, and take the black pieces to play through my career.</p>
 
 				<ul class="moves-nav">
 					<li><a href="#game"><span>The game so far</span></a></li>
@@ -130,44 +130,58 @@ my_website_url: https://devenbhooshan.in
 				<ol class="game">
 					<li>
 						<div>
+							<time class="game__year" datetime="2015">2015</time>
 							<h3>Amazon <span class="nag nag--dubious" title="Dubious move">?!</span></h3>
 							<p>Good company, wrong game for me.</p>
 						</div>
 					</li>
 					<li>
 						<div>
+							<time class="game__year" datetime="2016">2016</time>
 							<h3>MindIQ <span class="nag nag--interesting" title="Interesting move">!?</span></h3>
 							<p>Co-founded an AI chatbot builder before bots were a thing. <a href="https://www.techinasia.com/mindiq-ai-chatbots" target="_blank" rel="noopener">Tech in Asia wrote about us</a>.</p>
 						</div>
 					</li>
 					<li>
 						<div>
+							<time class="game__year" datetime="2017">2017</time>
 							<h3>GoJek <span class="nag nag--good" title="Good move">!</span></h3>
 							<p>Learned that code is a craft, and it still has to ship.</p>
 						</div>
 					</li>
 					<li>
 						<div>
+							<time class="game__year" datetime="2020">2020</time>
 							<h3>Took a break <span class="nag nag--good" title="Good move">!</span></h3>
 							<p>Built projects with friends and old colleagues.</p>
 						</div>
 					</li>
 					<li>
 						<div>
+							<time class="game__year" datetime="2021">2021</time>
+							<h3>Consulting <span class="nag nag--good" title="Good move">!</span></h3>
+							<p>Consulted for other teams, 2021 to 2023.</p>
+						</div>
+					</li>
+					<li>
+						<div>
+							<time class="game__year" datetime="2023">2023</time>
 							<h3><a href="{{ page.supergrow_url }}" target="_blank" rel="noopener">Supergrow</a> <span class="nag nag--brilliant" title="Brilliant move">!!</span></h3>
 							<p>Back to building my own. <a href="{{ page.blog_url }}/from-zero-to-250k-arr-the-indie-hackers-playbook" target="_blank" rel="noopener">How it got to $230K ARR</a>.</p>
 						</div>
 					</li>
 					<li>
 						<div>
-							<h3><a href="{{ page.warmdogo_url }}" target="_blank" rel="noopener">WarmDogo</a> <span class="nag nag--interesting" title="Interesting move">!?</span></h3>
-							<p>An outbound agent that finds warm leads in the signals people already give off.</p>
+							<time class="game__year" datetime="2025">2025</time>
+							<h3>Picked up chess <span class="nag nag--blunder" title="Blunder">??</span></h3>
+							<p>Still hanging pieces.</p>
 						</div>
 					</li>
 					<li>
 						<div>
-							<h3>Picked up chess <span class="nag nag--blunder" title="Blunder">??</span></h3>
-							<p>Still hanging pieces.</p>
+							<time class="game__year" datetime="2026">2026</time>
+							<h3><a href="{{ page.warmdogo_url }}" target="_blank" rel="noopener">WarmDogo</a> <span class="nag nag--interesting" title="Interesting move">!?</span></h3>
+							<p>An outbound agent that finds warm leads in the signals people already give off.</p>
 						</div>
 					</li>
 				</ol>
@@ -206,6 +220,18 @@ my_website_url: https://devenbhooshan.in
 
 	<p class="toast" id="toast" role="status" aria-live="polite"></p>
 
-	<script src="/assets/js/board.js?v={{ site.time | date: '%s' }}" defer></script>
+	<script src="/assets/js/deck.js?v={{ site.time | date: '%s' }}" defer></script>
+	<script type="importmap">{ "imports": { "three": "https://cdn.jsdelivr.net/npm/three@0.170.0/build/three.module.min.js" } }</script>
+	<script type="module">
+		// The 3D board when WebGL is there; otherwise the flat one.
+		import("/assets/js/board3d.js?v={{ site.time | date: '%s' }}")
+			.then(m => m.start())
+			.catch(() => {
+				const s = document.createElement("script");
+				s.src = "/assets/js/board.js?v={{ site.time | date: '%s' }}";
+				document.body.append(s);
+			});
+	</script>
+	<script nomodule src="/assets/js/board.js?v={{ site.time | date: '%s' }}" defer></script>
 </body>
 </html>

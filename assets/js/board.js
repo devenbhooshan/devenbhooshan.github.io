@@ -1,13 +1,10 @@
 (() => {
 	"use strict";
 
-	const root = document.documentElement;
 	const canvas = document.getElementById("board");
 	const ctx = canvas.getContext("2d");
-	const toastEl = document.getElementById("toast");
-	const drawers = [...document.querySelectorAll(".pane--drawer")];
-	const navLinks = [...document.querySelectorAll('.moves-nav a[href^="#"]')];
-	const reduce = matchMedia("(prefers-reduced-motion: reduce)");
+	const deck = window.deck;
+	const reduce = deck.reduce;
 
 	const C = {
 		last: "rgba(240, 201, 74, 0.34)",
@@ -33,31 +30,19 @@
 	let pointer = null;
 	let blunders = 0;
 	let queued = false;
-	let toastTimer = 0;
 
 	/* ---------- geometry ---------- */
 
 	function layout() {
 		vw = innerWidth;
 		vh = innerHeight;
-		mobile = vw < 760;
-		cell = mobile ? vw / 8 : Math.max(44, Math.min(64, Math.floor(vw / 21)));
-		root.style.setProperty("--cell", cell + "px");
+		mobile = deck.mobile;
+		cell = deck.cell;
 		cols = Math.ceil(vw / cell);
 		dpr = Math.min(window.devicePixelRatio || 1, 2);
 		canvas.width = Math.round(vw * dpr);
 		canvas.height = Math.round(vh * dpr);
-		snapPanes();
 		measure();
-	}
-
-	// Round every pane up to a whole number of squares so the next one lands on the grid.
-	function snapPanes() {
-		for (const pane of document.querySelectorAll(".pane")) {
-			const inner = pane.firstElementChild;
-			if (!inner) continue;
-			pane.style.minHeight = Math.ceil(inner.offsetHeight / cell) * cell + "px";
-		}
 	}
 
 	function measure() {
@@ -149,7 +134,7 @@
 		}
 		if (speak) {
 			if (wasLegal) {
-				say(`Knight to ${squareName(to)}.`);
+				deck.say(`Knight to ${squareName(to)}.`);
 			} else {
 				blunders++;
 				const lines = [
@@ -157,7 +142,7 @@
 					`That's blunder number ${blunders}. Told you I'm bad at this.`,
 					"Illegal, but it's my board, so it stands."
 				];
-				say(`<b>??</b> Knight to ${squareName(to)}. ${lines[(blunders - 1) % lines.length]}`);
+				deck.say(`<b>??</b> Knight to ${squareName(to)}. ${lines[(blunders - 1) % lines.length]}`);
 			}
 		}
 		invalidate();
@@ -167,13 +152,6 @@
 		if (!knight || free(knight)) return;
 		const to = nearestFree(knight);
 		if (to) move(to, { speak: false });
-	}
-
-	function say(html) {
-		toastEl.innerHTML = html;
-		toastEl.classList.add("is-on");
-		clearTimeout(toastTimer);
-		toastTimer = setTimeout(() => toastEl.classList.remove("is-on"), 3200);
 	}
 
 	/* ---------- drawing ---------- */
@@ -315,61 +293,7 @@
 		ctx.restore();
 	}
 
-	/* ---------- routing between panes ---------- */
-
-	function route({ initial = false } = {}) {
-		const id = location.hash.slice(1);
-		const target = drawers.find(d => d.id === id) || null;
-		for (const d of drawers) {
-			d.classList.toggle("is-open", d === target);
-			d.classList.remove("is-opening");
-		}
-		for (const a of navLinks) {
-			if (target && a.getAttribute("href") === "#" + target.id) a.setAttribute("aria-current", "true");
-			else a.removeAttribute("aria-current");
-		}
-		if (target && !initial) {
-			if (!reduce.matches) {
-				void target.offsetWidth;
-				target.classList.add("is-opening");
-			}
-			const heading = target.querySelector("h2");
-			if (mobile) target.scrollIntoView({ behavior: reduce.matches ? "auto" : "smooth", block: "start" });
-			heading.focus({ preventScroll: true });
-		}
-		snapPanes();
-		measure();
-		relocate();
-		invalidate();
-	}
-
-	function go(hash) {
-		history.pushState(null, "", hash || location.pathname + location.search);
-		route();
-	}
-
 	/* ---------- events ---------- */
-
-	document.addEventListener("click", e => {
-		const a = e.target.closest('a[href^="#"]');
-		if (a && a.getAttribute("href").length > 1 && drawers.some(d => "#" + d.id === a.getAttribute("href"))) {
-			e.preventDefault();
-			go(a.getAttribute("href"));
-			return;
-		}
-		const close = e.target.closest(".close");
-		if (close) {
-			const link = navLinks.find(l => l.getAttribute("href") === "#" + close.closest(".pane").id);
-			go("");
-			if (link) link.focus();
-		}
-	});
-
-	document.addEventListener("keydown", e => {
-		if (e.key === "Escape" && drawers.some(d => d.classList.contains("is-open"))) go("");
-	});
-
-	addEventListener("popstate", () => route());
 
 	document.addEventListener("pointerdown", e => {
 		if (e.button !== 0 || e.target.closest("a, button, .pane, .toast")) return;
@@ -401,12 +325,6 @@
 
 	addEventListener("scroll", () => { updateHover(); invalidate(); }, { passive: true });
 
-	let resizeTimer = 0;
-	addEventListener("resize", () => {
-		clearTimeout(resizeTimer);
-		resizeTimer = setTimeout(() => { layout(); relocate(); invalidate(); }, 60);
-	});
-
 	for (const btn of document.querySelectorAll("[data-knight-move]")) {
 		btn.addEventListener("click", () => {
 			if (!knight) return;
@@ -420,15 +338,11 @@
 		});
 	}
 
-	if ("ResizeObserver" in window) {
-		const ro = new ResizeObserver(() => { snapPanes(); measure(); relocate(); invalidate(); });
-		for (const p of document.querySelectorAll(".pane__in")) ro.observe(p);
-	}
+	addEventListener("deck:change", () => { layout(); relocate(); invalidate(); });
 
 	/* ---------- start ---------- */
 
 	layout();
-	route({ initial: true });
 	knight = nearestFree(mobile ? { i: 5, j: 1 } : { i: Math.min(cols - 2, 13), j: 4 });
 	if (knight && !reduce.matches) {
 		ripple = { at: knight, t0: performance.now() + 250, dist: knightDistances(knight) };
@@ -436,6 +350,6 @@
 	invalidate();
 
 	if (document.fonts && document.fonts.ready) {
-		document.fonts.ready.then(() => { glyphBox = null; snapPanes(); measure(); relocate(); invalidate(); });
+		document.fonts.ready.then(() => { glyphBox = null; invalidate(); });
 	}
 })();
