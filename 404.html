@@ -10,28 +10,36 @@ sitemap: false
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<meta name="robots" content="noindex, follow">
+	<meta name="theme-color" content="#243c2d">
+	<script>document.documentElement.classList.add("js")</script>
 	{% seo %}
 	<link rel="icon" href="/favicon.ico" sizes="32x32">
 	<link rel="icon" href="/favicon.svg" type="image/svg+xml">
 	<link rel="apple-touch-icon" href="/apple-touch-icon.png">
 	<link rel="preconnect" href="https://fonts.googleapis.com">
 	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-	<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400..700&family=Newsreader:ital,opsz,wght@0,6..72,300..600;1,6..72,300..500&display=swap" rel="stylesheet">
-	<link rel="stylesheet" href="/assets/css/style.css?v={{ site.time | date: '%s' }}">
+	<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,300..800&display=swap" rel="stylesheet">
+	<link rel="stylesheet" href="/assets/css/board.css?v={{ site.time | date: '%s' }}">
 </head>
 <body>
-	<div class="page">
-		<header class="masthead">
-			<span class="masthead__mark" aria-hidden="true"></span>
-		</header>
-		<main id="main">
-			<section class="hero">
-				<div class="hero__text">
-					<h1 class="hero__name">Not&nbsp;here</h1>
-					<p class="hero__role">That page doesn't exist. Head back to the <a href="/">front page</a>.</p>
-				</div>
-			</section>
-		</main>
-	</div>
+	<canvas id="board" aria-hidden="true"></canvas>
+
+	<main id="main" class="deck">
+		<article class="pane pane--home">
+			<div class="pane__in">
+				<h1 class="name">Nothing on this square</h1>
+				<p>There's no page at this address. It may have moved, or the link has a typo.</p>
+				<ul class="moves-nav">
+					<li><a href="/"><span>Back to the front page</span></a></li>
+					<li><a href="https://blog.devenbhooshan.in"><span>Read the blog</span></a></li>
+				</ul>
+				<p class="hint" style="margin-top: calc(var(--cell) * 0.5)">The knight's here too, if you'd rather play.</p>
+			</div>
+		</article>
+	</main>
+
+	<p class="toast" id="toast" role="status" aria-live="polite"></p>
+
+	<script src="/assets/js/board.js?v={{ site.time | date: '%s' }}" defer></script>
 </body>
 </html>
