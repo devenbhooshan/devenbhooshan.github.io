@@ -269,11 +269,37 @@
 
 	const PIECE_FONT = '"Apple Symbols", "Segoe UI Symbol", "DejaVu Sans", "Noto Sans Symbols 2", serif';
 
-	function drawKnight(x, y, scale, lift) {
-		const size = cell * 1.02 * scale;
+	const SOLID = "\u265E\uFE0E";
+	const OUTLINE = "\u2658\uFE0E";
+	const REF_SIZE = 100;
+	let glyphBox = null;
+
+	// Fonts place chess glyphs very differently (iOS sits them low and right), so measure
+	// the silhouette's actual ink once and centre that box in the square.
+	function measureGlyph() {
 		ctx.save();
-		ctx.textAlign = "center";
-		ctx.textBaseline = "middle";
+		ctx.font = `${REF_SIZE}px ${PIECE_FONT}`;
+		ctx.textAlign = "left";
+		ctx.textBaseline = "alphabetic";
+		const m = ctx.measureText(SOLID);
+		ctx.restore();
+		const w = m.actualBoundingBoxLeft + m.actualBoundingBoxRight;
+		const h = m.actualBoundingBoxAscent + m.actualBoundingBoxDescent;
+		if (!(w > 0 && h > 0)) return null;
+		return { left: m.actualBoundingBoxLeft, right: m.actualBoundingBoxRight, ascent: m.actualBoundingBoxAscent, descent: m.actualBoundingBoxDescent, extent: Math.max(w, h) };
+	}
+
+	function drawKnight(x, y, scale, lift) {
+		if (!glyphBox) glyphBox = measureGlyph();
+		const g = glyphBox || { left: 38, right: 38, ascent: 72, descent: 4, extent: 76 };
+		// Fit the ink to 78% of the square, whatever the font's own proportions.
+		const size = (cell * 0.78 * scale / g.extent) * REF_SIZE;
+		const k = size / REF_SIZE;
+		const ox = x - ((g.right - g.left) / 2) * k;
+		const oy = y + ((g.ascent - g.descent) / 2) * k;
+		ctx.save();
+		ctx.textAlign = "left";
+		ctx.textBaseline = "alphabetic";
 		ctx.font = `${size}px ${PIECE_FONT}`;
 		if (lift > 0) {
 			ctx.shadowColor = "rgba(0, 0, 0, 0.35)";
@@ -282,10 +308,10 @@
 		}
 		// A white piece: the solid silhouette in ivory, then the outline glyph on top.
 		ctx.fillStyle = C.piece;
-		ctx.fillText("♞︎", x, y + size * 0.04);
+		ctx.fillText(SOLID, ox, oy);
 		ctx.shadowColor = "transparent";
 		ctx.fillStyle = C.pieceLine;
-		ctx.fillText("♘︎", x, y + size * 0.04);
+		ctx.fillText(OUTLINE, ox, oy);
 		ctx.restore();
 	}
 
@@ -410,6 +436,6 @@
 	invalidate();
 
 	if (document.fonts && document.fonts.ready) {
-		document.fonts.ready.then(() => { snapPanes(); measure(); relocate(); invalidate(); });
+		document.fonts.ready.then(() => { glyphBox = null; snapPanes(); measure(); relocate(); invalidate(); });
 	}
 })();

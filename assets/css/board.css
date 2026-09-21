@@ -160,7 +160,7 @@ h2:focus-visible {
 	cursor: pointer;
 	transition: background-color 120ms;
 }
-.kn:hover { background: var(--hi); color: var(--ink); }
+@media (hover: hover) { .kn:hover { background: var(--hi); color: var(--ink); } }
 .kn:active { transform: translateY(1px); }
 
 /* Home navigation */
